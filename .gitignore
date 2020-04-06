@@ -27,6 +27,3 @@ hs_err_pid*
 .DS_Store
 
 *.iml
-
-moon-user-center/target
-moon-content-center/target
