@@ -1,6 +1,7 @@
 package com.moon.content.center.module.controller;
 
-import com.moon.content.center.module.domain.dto.ShareAddDTO;
+import com.moon.content.center.module.domain.dto.content.ShareAddDTO;
+import com.moon.content.center.module.domain.dto.content.ShareDTO;
 import com.moon.content.center.module.domain.entity.Share;
 import com.moon.content.center.module.service.ShareService;
 import lombok.RequiredArgsConstructor;
@@ -25,7 +26,7 @@ public class ShareController {
      * @return
      */
     @GetMapping("/{id}")
-    public Share findShareById(@PathVariable String id) {
+    public ShareDTO findShareById(@PathVariable String id) {
         return this.shareService.findShareById(id);
     }
 
@@ -34,9 +35,9 @@ public class ShareController {
      * @param share
      * @return
      */
-    @PostMapping("/add")
+    @PostMapping("/save")
     @ResponseBody
-    public Share add(ShareAddDTO share){
-        return this.shareService.add(share);
+    public Share save(ShareAddDTO share){
+        return this.shareService.save(share);
     }
 }

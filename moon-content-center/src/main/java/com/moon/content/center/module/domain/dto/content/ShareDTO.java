@@ -1,27 +1,31 @@
-package com.moon.content.center.module.domain.dto;
+package com.moon.content.center.module.domain.dto.content;
 
+import com.moon.content.center.common.base.BaseEntity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Column;
-import java.io.Serializable;
+import java.util.Date;
 
 /**
  * @description:
  * @author: 无忧
- * @date: 2020-04-06 02:02
+ * @date: 2020-04-06 18:35
  */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class ShareAddDTO implements Serializable {
+public class ShareDTO extends BaseEntity {
+    /**
+     * id
+     */
+    private String id;
+
     /**
      * 发布人id
      */
-    @Column(name = "user_id")
     private String userId;
 
     /**
@@ -30,9 +34,18 @@ public class ShareAddDTO implements Serializable {
     private String title;
 
     /**
+     * 创建时间
+     */
+    private Date createTime;
+
+    /**
+     * 修改时间
+     */
+    private Date updateTime;
+
+    /**
      * 是否原创 0:否 1:是
      */
-    @Column(name = "is_original")
     private Boolean isOriginal;
 
     /**
@@ -58,12 +71,30 @@ public class ShareAddDTO implements Serializable {
     /**
      * 下载地址
      */
-    @Column(name = "download_url")
     private String downloadUrl;
+
+    /**
+     * 下载数
+     */
+    private Integer buyCount;
 
     /**
      * 是否显示 0:否 1:是
      */
-    @Column(name = "show_flag")
     private Boolean showFlag;
+
+    /**
+     * 审核状态 NOT_YET: 待审核 PASSED:审核通过 REJECTED:审核不通过
+     */
+    private String auditStatus;
+
+    /**
+     * 审核不通过原因
+     */
+    private String reason;
+
+    /**
+     * 发布人
+     */
+    private String wxNickname;
 }

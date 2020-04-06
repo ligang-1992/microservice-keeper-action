@@ -8,6 +8,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 import java.util.UUID;
@@ -42,6 +44,7 @@ public class UserServiceImpl implements UserService {
      * @param bean
      * @return
      */
+    @Transactional(rollbackFor = Exception.class, isolation = Isolation.REPEATABLE_READ, timeout = 30)
     @Override
     public User register(UserRegisterDTO bean) {
         User user = User.builder()

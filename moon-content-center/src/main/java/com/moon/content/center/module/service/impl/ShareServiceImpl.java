@@ -1,16 +1,21 @@
 package com.moon.content.center.module.service.impl;
 
 
-
 import com.moon.content.center.common.constant.BusinessConsts;
-import com.moon.content.center.module.domain.dto.ShareAddDTO;
+import com.moon.content.center.module.domain.dto.content.ShareAddDTO;
+import com.moon.content.center.module.domain.dto.content.ShareDTO;
+import com.moon.content.center.module.domain.dto.user.UserDTO;
 import com.moon.content.center.module.domain.entity.Share;
 import com.moon.content.center.module.mapper.ShareMapper;
 import com.moon.content.center.module.service.ShareService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.Date;
 import java.util.UUID;
@@ -26,6 +31,7 @@ import java.util.UUID;
 public class ShareServiceImpl implements ShareService {
 
     private final ShareMapper shareMapper;
+    private final RestTemplate restTemplate;
 
     /**
      * 通过ID查找分享内容
@@ -34,8 +40,21 @@ public class ShareServiceImpl implements ShareService {
      * @return
      */
     @Override
-    public Share findShareById(String id) {
-        return this.shareMapper.selectByPrimaryKey(id);
+    public ShareDTO findShareById(String id) {
+
+        Share share = this.shareMapper.selectByPrimaryKey(id);
+        // 发布人的ID
+        String userId = share.getUserId();
+        UserDTO user = restTemplate.getForObject(
+                "http://localhost:8082/users/{id}",
+                UserDTO.class,
+                userId
+        );
+        ShareDTO shareDTO = new ShareDTO();
+        BeanUtils.copyProperties(share, shareDTO);
+        shareDTO.setWxNickname(user.getWxNickname());
+
+        return shareDTO;
     }
 
     /**
@@ -44,8 +63,9 @@ public class ShareServiceImpl implements ShareService {
      * @param dto
      * @return
      */
+    @Transactional(rollbackFor = Exception.class, isolation = Isolation.REPEATABLE_READ, timeout = 30)
     @Override
-    public Share add(ShareAddDTO dto) {
+    public Share save(ShareAddDTO dto) {
         Share share = Share.builder()
                 .id(UUID.randomUUID().toString().replace("-", ""))
                 .userId(dto.getUserId())

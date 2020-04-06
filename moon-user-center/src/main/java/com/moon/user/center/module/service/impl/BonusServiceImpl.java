@@ -6,6 +6,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * @description:
@@ -21,6 +23,7 @@ public class BonusServiceImpl implements BonusService {
      * 增加积分
      * @param message
      */
+    @Transactional(rollbackFor = Exception.class, isolation = Isolation.REPEATABLE_READ, timeout = 30)
     @Override
     public void addBonus(UserAddBonusMessageDTO message) {
 
