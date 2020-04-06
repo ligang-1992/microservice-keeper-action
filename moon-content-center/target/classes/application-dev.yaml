@@ -33,3 +33,15 @@ spring:
           instance: hello-metadata
           version: v1
 
+# 配置用户中心的负载均衡规则
+#user-center:
+#  ribbon:
+#    NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RandomRule
+
+ribbon:
+  # 设置ribbon饥饿加载
+  eager-load:
+    # 开启饥饿加载
+    enabled: true
+    # 配置需要饥饿加载的服务应用
+    clients: user-center

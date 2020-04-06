@@ -1,5 +1,6 @@
 package com.moon.content.center;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
@@ -12,6 +13,7 @@ import tk.mybatis.spring.annotation.MapperScan;
  * @author: 无忧
  * @date: 2020-04-02 18:26
  */
+@Slf4j
 @MapperScan("com.moon.content.center.module.mapper")
 @SpringBootApplication
 public class MoonContentCenterApplication {
@@ -23,6 +25,7 @@ public class MoonContentCenterApplication {
     @Bean
     @LoadBalanced
     public RestTemplate restTemplate(){
+        log.info("服务请求...");
         return new RestTemplate();
     }
 

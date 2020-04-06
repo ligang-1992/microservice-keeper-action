@@ -38,7 +38,6 @@ public class ShareServiceImpl implements ShareService {
 
     private final ShareMapper shareMapper;
     private final RestTemplate restTemplate;
-    private final DiscoveryClient discoveryClient;
 
     /**
      * 通过ID查找分享内容
