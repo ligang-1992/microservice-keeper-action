@@ -24,4 +24,11 @@ spring:
     nacos:
       discovery:
         server-addr: 127.0.0.1:8848
+        # 指定命名空间名称
+        # namespace: 5c27f9c9-a2e7-4960-b5f4-68fbbafa996a
+        # 指定集群名称
+        # cluster-name: ChangSha
+        metadata:
+          instance: c
+          version: v1
 

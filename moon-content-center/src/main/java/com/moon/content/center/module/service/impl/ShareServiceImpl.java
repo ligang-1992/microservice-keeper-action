@@ -22,6 +22,9 @@ import org.springframework.web.client.RestTemplate;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
+import java.util.concurrent.ThreadLocalRandom;
+
+import static java.util.stream.Collectors.toList;
 
 /**
  * @description:
@@ -52,15 +55,14 @@ public class ShareServiceImpl implements ShareService {
 
         // 获取服务调用地址
         List<ServiceInstance> instances = discoveryClient.getInstances("user-center");
-        String targetURL = instances.stream()
+        List<String> targetURLS = instances.stream()
                 // 数据转换
                 .map(instance -> instance.getUri().toString() + "/users/{id}")
-                .findFirst()
-                .orElseThrow(() -> new IllegalArgumentException("目前没有发现实例"));
-        log.info("url: " + targetURL);
+                .collect(toList());
+        int i = ThreadLocalRandom.current().nextInt(targetURLS.size());
 
         UserDTO user = restTemplate.getForObject(
-                targetURL,
+                targetURLS.get(i),
                 UserDTO.class,
                 userId
         );
