@@ -28,5 +28,5 @@ hs_err_pid*
 
 *.iml
 
-moon-content-center/target/
-moon-user-center/target/
+moon-user-center/target
+moon-content-center/target
