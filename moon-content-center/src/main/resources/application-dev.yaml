@@ -45,3 +45,16 @@ ribbon:
     enabled: true
     # 配置需要饥饿加载的服务应用
     clients: user-center
+
+logging:
+  level:
+    com.moon.content.center.module: debug
+    # 设置Feign日志打印级别
+    com.moon.content.center.framework.feignclient.UserCenterFeignClient: debug
+
+feign:
+  client:
+    config:
+      # 全局配置日志打印级别
+      default:
+        loggerLevel: FULL

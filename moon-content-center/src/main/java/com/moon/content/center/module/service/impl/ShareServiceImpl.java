@@ -2,6 +2,7 @@ package com.moon.content.center.module.service.impl;
 
 
 import com.moon.content.center.common.constant.BusinessConsts;
+import com.moon.content.center.framework.feignclient.UserCenterFeignClient;
 import com.moon.content.center.module.domain.dto.content.ShareAddDTO;
 import com.moon.content.center.module.domain.dto.content.ShareDTO;
 import com.moon.content.center.module.domain.dto.user.UserDTO;
@@ -38,6 +39,7 @@ public class ShareServiceImpl implements ShareService {
 
     private final ShareMapper shareMapper;
     private final RestTemplate restTemplate;
+    private final UserCenterFeignClient userCenterFeignClient;
 
     /**
      * 通过ID查找分享内容
@@ -52,14 +54,11 @@ public class ShareServiceImpl implements ShareService {
         // 发布人的ID
         String userId = share.getUserId();
 
-        UserDTO user = restTemplate.getForObject(
-                "http://user-center/users/{id}",
-                UserDTO.class,
-                userId
-        );
+        UserDTO userDTO = this.userCenterFeignClient.findUserById(userId);
+
         ShareDTO shareDTO = new ShareDTO();
         BeanUtils.copyProperties(share, shareDTO);
-        shareDTO.setWxNickname(user.getWxNickname());
+        shareDTO.setWxNickname(userDTO.getWxNickname());
 
         return shareDTO;
     }

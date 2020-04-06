@@ -1,5 +1,6 @@
 package com.moon.user.center;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import tk.mybatis.spring.annotation.MapperScan;
@@ -9,6 +10,7 @@ import tk.mybatis.spring.annotation.MapperScan;
  * @author: 无忧
  * @date: 2020-04-02 18:26
  */
+@Slf4j
 @MapperScan("com.moon.user.center.module.mapper")
 @SpringBootApplication
 //@EnableBinding(Sink.class)
