@@ -53,16 +53,8 @@ public class ShareServiceImpl implements ShareService {
         // 发布人的ID
         String userId = share.getUserId();
 
-        // 获取服务调用地址
-        List<ServiceInstance> instances = discoveryClient.getInstances("user-center");
-        List<String> targetURLS = instances.stream()
-                // 数据转换
-                .map(instance -> instance.getUri().toString() + "/users/{id}")
-                .collect(toList());
-        int i = ThreadLocalRandom.current().nextInt(targetURLS.size());
-
         UserDTO user = restTemplate.getForObject(
-                targetURLS.get(i),
+                "http://user-center/users/{id}",
                 UserDTO.class,
                 userId
         );

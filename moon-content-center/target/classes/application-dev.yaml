@@ -28,7 +28,8 @@ spring:
         # namespace: 5c27f9c9-a2e7-4960-b5f4-68fbbafa996a
         # 指定集群名称
         # cluster-name: ChangSha
+        # 设置元数据
         metadata:
-          instance: c
+          instance: hello-metadata
           version: v1
 
