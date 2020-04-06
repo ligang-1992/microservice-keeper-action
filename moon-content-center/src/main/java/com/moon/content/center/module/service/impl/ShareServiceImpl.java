@@ -12,12 +12,15 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cloud.client.ServiceInstance;
+import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
 /**
@@ -32,6 +35,7 @@ public class ShareServiceImpl implements ShareService {
 
     private final ShareMapper shareMapper;
     private final RestTemplate restTemplate;
+    private final DiscoveryClient discoveryClient;
 
     /**
      * 通过ID查找分享内容
@@ -45,8 +49,18 @@ public class ShareServiceImpl implements ShareService {
         Share share = this.shareMapper.selectByPrimaryKey(id);
         // 发布人的ID
         String userId = share.getUserId();
+
+        // 获取服务调用地址
+        List<ServiceInstance> instances = discoveryClient.getInstances("user-center");
+        String targetURL = instances.stream()
+                // 数据转换
+                .map(instance -> instance.getUri().toString() + "/users/{id}")
+                .findFirst()
+                .orElseThrow(() -> new IllegalArgumentException("目前没有发现实例"));
+        log.info("url: " + targetURL);
+
         UserDTO user = restTemplate.getForObject(
-                "http://localhost:8082/users/{id}",
+                targetURL,
                 UserDTO.class,
                 userId
         );
