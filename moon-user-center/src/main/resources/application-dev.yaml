@@ -28,6 +28,20 @@ spring:
       maximumPoolSize: 15
 
   cloud:
+    # 限流、流量整形、熔断降级、系统负载保护
     nacos:
       server-addr: 127.0.0.1:8848
+      # 设置元数据
+      metadata:
+        instance: hello-metadata
+        version: v1
+
+    # 流量控制、熔断降级、系统负载保护
+    sentinel:
+      transport:
+        # 指定sentinel控制台地址
+        dashboard: 127.0.0.1:8080
+
+logging:
+  config: classpath:logback-spring.xml
    

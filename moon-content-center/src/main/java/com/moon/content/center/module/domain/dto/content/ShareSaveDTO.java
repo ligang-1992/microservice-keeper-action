@@ -1,12 +1,12 @@
 package com.moon.content.center.module.domain.dto.content;
 
+import com.moon.content.center.common.base.BaseEntity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.Column;
-import java.io.Serializable;
 
 /**
  * @description:
@@ -17,7 +17,7 @@ import java.io.Serializable;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class ShareAddDTO implements Serializable {
+public class ShareSaveDTO extends BaseEntity {
     /**
      * 发布人id
      */

@@ -2,7 +2,7 @@ package com.moon.content.center.common.configuration;
 
 import org.springframework.cloud.netflix.ribbon.RibbonClients;
 import org.springframework.context.annotation.Configuration;
-import ribbonconfiguration.RibbonConfiguration;
+import ribbon.RibbonConfiguration;
 
 /**
  * @description:

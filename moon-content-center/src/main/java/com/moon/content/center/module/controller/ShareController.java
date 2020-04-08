@@ -1,6 +1,6 @@
 package com.moon.content.center.module.controller;
 
-import com.moon.content.center.module.domain.dto.content.ShareAddDTO;
+import com.moon.content.center.module.domain.dto.content.ShareSaveDTO;
 import com.moon.content.center.module.domain.dto.content.ShareDTO;
 import com.moon.content.center.module.domain.entity.Share;
 import com.moon.content.center.module.service.ShareService;
@@ -37,7 +37,8 @@ public class ShareController {
      */
     @PostMapping("/save")
     @ResponseBody
-    public Share save(ShareAddDTO share){
+    public Share save(ShareSaveDTO share){
         return this.shareService.save(share);
     }
+
 }

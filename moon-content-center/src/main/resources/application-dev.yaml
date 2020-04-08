@@ -21,6 +21,7 @@ spring:
       maximumPoolSize: 15
 
   cloud:
+    # 限流、流量整形、熔断降级、系统负载保护
     nacos:
       discovery:
         server-addr: 127.0.0.1:8848
@@ -32,6 +33,12 @@ spring:
         metadata:
           instance: hello-metadata
           version: v1
+
+    # 流量控制、熔断降级、系统负载保护
+    sentinel:
+      transport:
+        # 指定sentinel控制台地址
+        dashboard: 127.0.0.1:8080
 
 # 配置用户中心的负载均衡规则
 #user-center:
@@ -47,10 +54,7 @@ ribbon:
     clients: user-center
 
 logging:
-  level:
-    com.moon.content.center.module: debug
-    # 设置Feign日志打印级别
-    com.moon.content.center.framework.feignclient.UserCenterFeignClient: debug
+  config: classpath:logback-spring.xml
 
 feign:
   client:
@@ -58,3 +62,9 @@ feign:
       # 全局配置日志打印级别
       default:
         loggerLevel: FULL
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'

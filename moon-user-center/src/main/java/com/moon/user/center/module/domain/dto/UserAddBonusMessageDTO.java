@@ -1,5 +1,6 @@
 package com.moon.user.center.module.domain.dto;
 
+import com.moon.user.center.common.base.BaseEntity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -14,7 +15,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class UserAddBonusMessageDTO {
+public class UserAddBonusMessageDTO extends BaseEntity {
     /**
      * 为谁加积分
      */

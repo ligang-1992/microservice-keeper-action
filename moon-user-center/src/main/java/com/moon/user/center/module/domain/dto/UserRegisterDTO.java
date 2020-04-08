@@ -1,5 +1,6 @@
 package com.moon.user.center.module.domain.dto;
 
+import com.moon.user.center.common.base.BaseEntity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -17,7 +18,7 @@ import java.io.Serializable;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class UserRegisterDTO implements Serializable {
+public class UserRegisterDTO extends BaseEntity {
 
     @Column(name = "wx_id")
     private String wxId;

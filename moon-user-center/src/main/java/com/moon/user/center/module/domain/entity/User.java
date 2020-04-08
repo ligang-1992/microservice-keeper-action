@@ -1,9 +1,15 @@
 package com.moon.user.center.module.domain.entity;
 
-import lombok.*;
+import com.moon.user.center.common.base.BaseEntity;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
-import java.io.Serializable;
+import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.util.Date;
 
 /**
@@ -16,7 +22,7 @@ import java.util.Date;
 @AllArgsConstructor
 @Builder
 @Table(name = "user")
-public class User implements Serializable {
+public class User extends BaseEntity {
     /**
      * Id
      */

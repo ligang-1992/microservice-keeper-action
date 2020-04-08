@@ -1,4 +1,4 @@
-package com.moon.content.center.framework.feignclient;
+package com.moon.content.center.framework.feign;
 
 import com.moon.content.center.module.domain.dto.user.UserDTO;
 import org.springframework.cloud.openfeign.FeignClient;

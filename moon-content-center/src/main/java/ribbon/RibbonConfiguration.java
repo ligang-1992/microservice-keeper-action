@@ -1,4 +1,4 @@
-package ribbonconfiguration;
+package ribbon;
 
 import com.moon.content.center.common.configuration.NacosWeightedRule;
 import com.netflix.loadbalancer.IRule;

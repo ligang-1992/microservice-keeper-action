@@ -1,6 +1,6 @@
 package com.moon.content.center.module.service;
 
-import com.moon.content.center.module.domain.dto.content.ShareAddDTO;
+import com.moon.content.center.module.domain.dto.content.ShareSaveDTO;
 import com.moon.content.center.module.domain.dto.content.ShareDTO;
 import com.moon.content.center.module.domain.entity.Share;
 
@@ -22,5 +22,5 @@ public interface ShareService {
      * @param share
      * @return
      */
-    Share save(ShareAddDTO share);
+    Share save(ShareSaveDTO share);
 }

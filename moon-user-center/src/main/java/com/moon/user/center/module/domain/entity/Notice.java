@@ -1,5 +1,6 @@
 package com.moon.user.center.module.domain.entity;
 
+import com.moon.user.center.common.base.BaseEntity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -21,7 +22,7 @@ import java.util.Date;
 @AllArgsConstructor
 @Builder
 @Table(name = "notice")
-public class Notice {
+public class Notice extends BaseEntity {
     /**
      * id
      */
