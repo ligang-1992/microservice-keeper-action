@@ -1,6 +1,6 @@
 package com.moon.content.center;
 
-import com.moon.content.center.common.configuration.GlobalFeignConfiguration;
+import com.alibaba.cloud.sentinel.annotation.SentinelRestTemplate;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -18,7 +18,7 @@ import tk.mybatis.spring.annotation.MapperScan;
 @Slf4j
 @MapperScan("com.moon.content.center.module.mapper")
 @SpringBootApplication
-@EnableFeignClients //(defaultConfiguration = GlobalFeignConfiguration.class)
+@EnableFeignClients
 public class MoonContentCenterApplication {
 
     public static void main(String[] args) {
@@ -27,7 +27,8 @@ public class MoonContentCenterApplication {
 
     @Bean
     @LoadBalanced
-    public RestTemplate restTemplate(){
+    @SentinelRestTemplate
+    public RestTemplate restTemplate() {
         log.info("服务请求...");
         return new RestTemplate();
     }

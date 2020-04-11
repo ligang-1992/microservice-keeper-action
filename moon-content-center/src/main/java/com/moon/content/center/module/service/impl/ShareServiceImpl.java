@@ -3,8 +3,8 @@ package com.moon.content.center.module.service.impl;
 
 import com.moon.content.center.common.constant.BusinessConsts;
 import com.moon.content.center.framework.feign.UserCenterFeignClient;
-import com.moon.content.center.module.domain.dto.content.ShareSaveDTO;
 import com.moon.content.center.module.domain.dto.content.ShareDTO;
+import com.moon.content.center.module.domain.dto.content.ShareSaveDTO;
 import com.moon.content.center.module.domain.dto.user.UserDTO;
 import com.moon.content.center.module.domain.entity.Share;
 import com.moon.content.center.module.mapper.ShareMapper;
@@ -16,7 +16,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.client.RestTemplate;
 
 import java.util.Date;
 import java.util.UUID;
@@ -32,7 +31,6 @@ import java.util.UUID;
 public class ShareServiceImpl implements ShareService {
 
     private final ShareMapper shareMapper;
-    private final RestTemplate restTemplate;
     private final UserCenterFeignClient userCenterFeignClient;
 
     /**
@@ -47,7 +45,6 @@ public class ShareServiceImpl implements ShareService {
         Share share = this.shareMapper.selectByPrimaryKey(id);
         // 发布人的ID
         String userId = share.getUserId();
-
         UserDTO userDTO = this.userCenterFeignClient.findUserById(userId);
 
         ShareDTO shareDTO = new ShareDTO();

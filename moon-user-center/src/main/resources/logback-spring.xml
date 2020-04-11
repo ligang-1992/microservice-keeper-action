@@ -3,9 +3,7 @@
     <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
 
     <!-- 日志路径 -->
-    <property name="LOG_HOME"
-              value="/Users/ligang/workspace/learn/technical-example/microservice-keeper-action/moon-user-center/logs">
-    </property>
+    <property name="LOG_HOME" value="./moon-user-center/logs"></property>
 
     <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
