@@ -36,9 +36,14 @@ spring:
 
     # 流量控制、熔断降级、系统负载保护
     sentinel:
+      filter:
+        # 打开/关闭掉对Spring MVC端点的保护
+        enabled: true
       transport:
         # 指定sentinel控制台地址
         dashboard: 127.0.0.1:8080
+        # 默认8719端口，假如被占用会自动从8719开始一次+1扫描，直至找到未被占用的端口
+        port: 8719
 
 # 配置用户中心的负载均衡规则
 #user-center:
@@ -53,21 +58,24 @@ ribbon:
     # 配置需要饥饿加载的服务应用
     clients: user-center
 
+
 logging:
   config: classpath:logback-spring.xml
 
 feign:
+  sentinel:
+    # 为feign整合sentinel
+    enabled:  true
   client:
     config:
       # 全局配置日志打印级别
       default:
         loggerLevel: FULL
 
-management:
-  endpoints:
-    web:
-      exposure:
-        include: '*'
-  endpoint:
-    health:
-      show-details: ALWAYS
+# RestTemplate 整合 sentinel 配置
+resttemplate:
+  sentinel:
+    # 关闭 @SentinelRestTemplate 注解
+    enabled: false
+
+
