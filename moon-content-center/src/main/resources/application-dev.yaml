@@ -78,11 +78,4 @@ resttemplate:
     # 关闭 @SentinelRestTemplate 注解
     enabled: false
 
-management:
-  endpoints:
-    web:
-      exposure:
-        include: '*'
-  endpoint:
-    health:
-      show-details: always
+
