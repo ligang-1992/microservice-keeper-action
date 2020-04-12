@@ -8,28 +8,31 @@ management:
     health:
       show-details: always
 
-spring:
-  profiles:
-    active: dev
-
-# 连字符
----
-# profile=x的专用属性，即某个环境下的专用属性
-# 生产环境
-spring:
-  profiles: prod
-
----
-# 测试环境
-spring:
-  profiles: test
-
-server:
-  tomcat:
-    max-threads: 300
-    max-connections: 1000
-
 info:
   app-name: user-center
   author: 无忧
   email: henfengyu@qq.com
+
+logging:
+  config: classpath:logback-spring.xml
+
+spring:
+  profiles:
+    active: dev
+
+## 连字符
+#---
+## profile=x的专用属性，即某个环境下的专用属性
+## 生产环境
+#spring:
+#  profiles: prod
+#
+#---
+## 测试环境
+#spring:
+#  profiles: test
+#
+#server:
+#  tomcat:
+#    max-threads: 300
+#    max-connections: 1000

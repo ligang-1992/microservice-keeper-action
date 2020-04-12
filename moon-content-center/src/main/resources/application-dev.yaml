@@ -58,10 +58,6 @@ ribbon:
     # 配置需要饥饿加载的服务应用
     clients: user-center
 
-
-logging:
-  config: classpath:logback-spring.xml
-
 feign:
   sentinel:
     # 为feign整合sentinel
@@ -78,4 +74,12 @@ resttemplate:
     # 关闭 @SentinelRestTemplate 注解
     enabled: false
 
-
+# 所有环境公用的配置属性
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  endpoint:
+    health:
+      show-details: always
