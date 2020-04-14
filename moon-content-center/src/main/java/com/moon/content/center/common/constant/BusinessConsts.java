@@ -16,4 +16,7 @@ public class BusinessConsts {
     public static final String AUDIT_STATUS_NOT_YET = "NOT_YET";
     public static final String AUDIT_STATUS_PASSED = "PASSED";
     public static final String AUDIT_STATUS_REJECTED = "REJECTED";
+
+    public static final Integer ID_LENGTH = 32;
+
 }
