@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
  * @author: 无忧
  * @date: 2020-04-14 21:00
  */
+//@Component
 public class ContentRequestOriginParser implements RequestOriginParser {
     @Override
     public String parseOrigin(HttpServletRequest request) {
