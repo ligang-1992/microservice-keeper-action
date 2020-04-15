@@ -1,10 +1,13 @@
 package com.moon.content.center.framework.feign;
 
 import com.moon.content.center.framework.sentinel.fallbackfactory.UserCenterFeignClientFallBackFactory;
+import com.moon.content.center.module.domain.dto.user.UserAddBonusMessageDTO;
 import com.moon.content.center.module.domain.dto.user.UserDTO;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
  * @description:
@@ -24,4 +27,14 @@ public interface UserCenterFeignClient {
      */
     @GetMapping("/users/{id}")
     UserDTO findUserById(@PathVariable String id);
+
+    /**
+     * 为用户增加积分
+     *
+     * @param message
+     * @return
+     */
+    @PostMapping("/bonus/add-bonus")
+    @ResponseBody
+    UserDTO addBonus(UserAddBonusMessageDTO message);
 }

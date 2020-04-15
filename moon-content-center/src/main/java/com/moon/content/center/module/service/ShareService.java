@@ -1,7 +1,8 @@
 package com.moon.content.center.module.service;
 
-import com.moon.content.center.module.domain.dto.content.ShareSaveDTO;
+import com.moon.content.center.module.domain.dto.content.ShareAuditDTO;
 import com.moon.content.center.module.domain.dto.content.ShareDTO;
+import com.moon.content.center.module.domain.dto.content.ShareSaveDTO;
 import com.moon.content.center.module.domain.entity.Share;
 
 /**
@@ -12,6 +13,7 @@ import com.moon.content.center.module.domain.entity.Share;
 public interface ShareService {
     /**
      * 通过ID查找分享内容
+     *
      * @param id
      * @return
      */
@@ -19,8 +21,18 @@ public interface ShareService {
 
     /**
      * 新增分享
+     *
      * @param share
      * @return
      */
     Share save(ShareSaveDTO share);
+
+    /**
+     * 审核分享文章
+     *
+     * @param id
+     * @param auditDTO
+     * @return
+     */
+    Share auditById(String id, ShareAuditDTO auditDTO);
 }

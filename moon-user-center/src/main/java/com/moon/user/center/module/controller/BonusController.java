@@ -8,10 +8,7 @@ import com.moon.user.center.module.service.BonusService;
 import com.moon.user.center.module.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @description:
@@ -26,7 +23,7 @@ public class BonusController {
     private final BonusService bonusService;
     private final UserService userService;
 
-    @PutMapping("add-bonus")
+    @PostMapping("add-bonus")
     @ResponseBody
     public User addBonus(UserAddBonusDTO bonusDTO) {
         String userId = bonusDTO.getUserId();

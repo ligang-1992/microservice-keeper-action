@@ -23,9 +23,11 @@ spring:
       username: root
       password: 123456
       # 一个连接的生命时长（毫秒），超时而且没被使用则被释放（retired），缺省:30分钟，建议设置比数据库超时时长少30秒以上
-      maxLifetime: 1765000
+      max-lifetime: 1765000
       # 连接池中允许的最大连接数。缺省值：10；推荐的公式：((core_count * 2) + effective_spindle_count)
-      maximumPoolSize: 15
+      maximum-pool-size: 15
+
+
 
   cloud:
     # 限流、流量整形、熔断降级、系统负载保护
@@ -33,9 +35,9 @@ spring:
       discovery:
         server-addr: 127.0.0.1:8848
         # 设置元数据
-  #      metadata:
-  #        instance: hello-metadata
-  #        version: v1
+    #      metadata:
+    #        instance: hello-metadata
+    #        version: v1
 
     # 流量控制、熔断降级、系统负载保护
     sentinel:
@@ -43,6 +45,13 @@ spring:
         # 指定sentinel控制台地址
         dashboard: 127.0.0.1:8080
 
+  # Rabbit MQ 配置
+  rabbitmq:
+    host: 127.0.0.1
+    port: 5672
+    virtual-host: my_vhost
+    username: admin
+    password: 123456
 
 
    

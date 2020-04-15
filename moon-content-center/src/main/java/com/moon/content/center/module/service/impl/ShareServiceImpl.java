@@ -3,8 +3,10 @@ package com.moon.content.center.module.service.impl;
 
 import com.moon.content.center.common.constant.BusinessConsts;
 import com.moon.content.center.framework.feign.UserCenterFeignClient;
+import com.moon.content.center.module.domain.dto.content.ShareAuditDTO;
 import com.moon.content.center.module.domain.dto.content.ShareDTO;
 import com.moon.content.center.module.domain.dto.content.ShareSaveDTO;
+import com.moon.content.center.module.domain.dto.user.UserAddBonusMessageDTO;
 import com.moon.content.center.module.domain.dto.user.UserDTO;
 import com.moon.content.center.module.domain.entity.Share;
 import com.moon.content.center.module.mapper.ShareMapper;
@@ -13,11 +15,13 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
+import java.util.Objects;
 import java.util.UUID;
 
 /**
@@ -83,5 +87,44 @@ public class ShareServiceImpl implements ShareService {
 
         Share result = this.shareMapper.selectByPrimaryKey(share.getId());
         return result;
+    }
+
+    /**
+     * 审核分享文章
+     *
+     * @param id
+     * @param auditDTO
+     * @return
+     */
+
+    @Async
+//    @Transactional(rollbackFor = Exception.class, isolation = Isolation.REPEATABLE_READ, timeout = 30)
+    @Transactional(rollbackFor = Exception.class)
+    @Override
+    public Share auditById(String id, ShareAuditDTO auditDTO) {
+        // 1. 查询share是否存在，不存在或者当前的audit_status != NOT_YET，那么抛异常
+        Share share = this.shareMapper.selectByPrimaryKey(id);
+        if (share == null) {
+            throw new IllegalArgumentException("参数非法！该分享不存在！");
+        }
+        if (!Objects.equals(BusinessConsts.AUDIT_STATUS_NOT_YET, share.getAuditStatus())) {
+            throw new IllegalArgumentException("参数非法！该分享已审核通过或审核不通过！");
+        }
+
+        // 修改分享文章审核状态
+        share.setAuditStatus(auditDTO.getAuditStatusEnum().toString());
+        share.setReason(auditDTO.getReason());
+        this.shareMapper.updateByPrimaryKeySelective(share);
+
+        // 异步增加用户积分
+        userCenterFeignClient.addBonus(
+                UserAddBonusMessageDTO.builder()
+                        .userId(share.getUserId())
+                        .bonus(100)
+                        .description("兑换分享")
+                        .event("")
+                        .build()
+        );
+        return share;
     }
 }
