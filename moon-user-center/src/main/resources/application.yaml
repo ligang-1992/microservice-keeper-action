@@ -1,3 +1,9 @@
+server:
+  port: 8083
+  tomcat:
+    uri-encoding: UTF-8
+  max-http-header-size: 80KB
+
 # 所有环境公用的配置属性
 management:
   endpoints:
