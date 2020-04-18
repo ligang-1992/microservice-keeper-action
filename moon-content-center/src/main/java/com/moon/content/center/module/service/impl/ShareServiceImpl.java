@@ -1,7 +1,7 @@
 package com.moon.content.center.module.service.impl;
 
 
-import com.moon.content.center.common.constant.BusinessConsts;
+import com.moon.content.center.common.constant.BusinessConstants;
 import com.moon.content.center.framework.feign.UserCenterFeignClient;
 import com.moon.content.center.module.domain.dto.content.ShareAuditDTO;
 import com.moon.content.center.module.domain.dto.content.ShareDTO;
@@ -81,7 +81,7 @@ public class ShareServiceImpl implements ShareService {
                 .downloadUrl(dto.getDownloadUrl())
                 .buyCount(0)
                 .showFlag(true)
-                .auditStatus(BusinessConsts.AUDIT_STATUS_NOT_YET)
+                .auditStatus(BusinessConstants.AUDIT_STATUS_NOT_YET)
                 .build();
         this.shareMapper.insert(share);
 
@@ -107,7 +107,7 @@ public class ShareServiceImpl implements ShareService {
         if (share == null) {
             throw new IllegalArgumentException("参数非法！该分享不存在！");
         }
-        if (!Objects.equals(BusinessConsts.AUDIT_STATUS_NOT_YET, share.getAuditStatus())) {
+        if (!Objects.equals(BusinessConstants.AUDIT_STATUS_NOT_YET, share.getAuditStatus())) {
             throw new IllegalArgumentException("参数非法！该分享已审核通过或审核不通过！");
         }
 
