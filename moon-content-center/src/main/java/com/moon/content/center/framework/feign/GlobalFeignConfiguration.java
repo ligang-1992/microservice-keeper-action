@@ -1,4 +1,4 @@
-package com.moon.content.center.common.configuration;
+package com.moon.content.center.framework.feign;
 
 import feign.Logger;
 import org.springframework.context.annotation.Bean;

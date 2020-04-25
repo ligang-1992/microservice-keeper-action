@@ -51,14 +51,31 @@ spring:
         dashboard: 127.0.0.1:8080
         # 默认8719端口，假如被占用会自动从8719开始一次+1扫描，直至找到未被占用的端口
         port: 8719
+    stream:
+      binders:
+        rabbit_cluster:
+          type: rabbit
+          environment:
+            spring:
+              rabbitmq:
+                host: 127.0.0.1
+                port: 5672
+                username: admin
+                password: 123456
+                virtual-host: my_vhost
+      bindings:
+        output_channel:
+          destination: exchange-content
+          group: queue-content
+          binder: rabbit_cluster
 
   # Rabbit MQ 配置
-  rabbitmq:
-    host: 127.0.0.1
-    port: 5672
-    virtual-host: my_vhost
-    username: admin
-    password: 123456
+#  rabbitmq:
+#    host: 127.0.0.1
+#    port: 5672
+#    virtual-host: my_vhost
+#    username: admin
+#    password: 123456
 
 # mybatis配置
 mybatis:
@@ -79,6 +96,11 @@ ribbon:
     enabled: true
     # 配置需要饥饿加载的服务应用
     clients: user-center
+  MaxAutoRetries: 1
+  MaxAutoRetriesNextServer: 2
+  ReadTimeout: 60000
+  ConnectTimeout: 60000
+  OkToRetryOnAllOperations: false
 
 feign:
   sentinel:

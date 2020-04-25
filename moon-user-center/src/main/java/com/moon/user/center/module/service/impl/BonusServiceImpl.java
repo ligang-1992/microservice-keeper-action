@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
+import java.util.UUID;
 
 /**
  * @description:
@@ -45,8 +46,9 @@ public class BonusServiceImpl implements BonusService {
         this.userMapper.updateByPrimaryKeySelective(user);
 
         // 2. 记录日志到bonus_event_log表里面
-        this.bonusEventLogMapper.insert(
+        int insert = this.bonusEventLogMapper.insert(
                 BonusEventLog.builder()
+                        .id(UUID.randomUUID().toString().replace("-", ""))
                         .userId(userId)
                         .value(bonus)
                         .event(message.getEvent())
@@ -54,6 +56,9 @@ public class BonusServiceImpl implements BonusService {
                         .description(message.getDescription())
                         .build()
         );
+        if (insert < 0) {
+            throw new IllegalArgumentException("审核失败");
+        }
 
         log.info("积分添加完成");
     }

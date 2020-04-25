@@ -1,4 +1,4 @@
-package com.moon.content.center.common.configuration;
+package com.moon.content.center.framework.ribbon;
 
 import org.springframework.cloud.netflix.ribbon.RibbonClients;
 import org.springframework.context.annotation.Configuration;

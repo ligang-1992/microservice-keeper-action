@@ -1,4 +1,4 @@
-package com.moon.content.center.common.configuration;
+package com.moon.content.center.framework.nacos;
 
 import com.alibaba.cloud.nacos.NacosDiscoveryProperties;
 import com.alibaba.cloud.nacos.ribbon.NacosServer;

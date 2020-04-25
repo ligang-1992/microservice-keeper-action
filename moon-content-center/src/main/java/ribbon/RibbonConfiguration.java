@@ -1,6 +1,6 @@
 package ribbon;
 
-import com.moon.content.center.common.configuration.NacosWeightedRule;
+import com.moon.content.center.framework.nacos.NacosWeightedRule;
 import com.netflix.loadbalancer.IRule;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

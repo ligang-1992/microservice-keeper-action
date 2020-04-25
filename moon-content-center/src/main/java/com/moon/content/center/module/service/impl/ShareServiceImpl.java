@@ -6,7 +6,7 @@ import com.moon.content.center.framework.feign.UserCenterFeignClient;
 import com.moon.content.center.module.domain.dto.content.ShareAuditDTO;
 import com.moon.content.center.module.domain.dto.content.ShareDTO;
 import com.moon.content.center.module.domain.dto.content.ShareSaveDTO;
-import com.moon.content.center.module.domain.dto.user.UserAddBonusMessageDTO;
+import com.moon.content.center.module.domain.dto.user.UserAddBonusDTO;
 import com.moon.content.center.module.domain.dto.user.UserDTO;
 import com.moon.content.center.module.domain.entity.Share;
 import com.moon.content.center.module.mapper.ShareMapper;
@@ -98,8 +98,7 @@ public class ShareServiceImpl implements ShareService {
      */
 
     @Async
-//    @Transactional(rollbackFor = Exception.class, isolation = Isolation.REPEATABLE_READ, timeout = 30)
-    @Transactional(rollbackFor = Exception.class)
+    @Transactional(rollbackFor = Exception.class, isolation = Isolation.REPEATABLE_READ, timeout = 30)
     @Override
     public Share auditById(String id, ShareAuditDTO auditDTO) {
         // 1. 查询share是否存在，不存在或者当前的audit_status != NOT_YET，那么抛异常
@@ -118,11 +117,11 @@ public class ShareServiceImpl implements ShareService {
 
         // 异步增加用户积分
         userCenterFeignClient.addBonus(
-                UserAddBonusMessageDTO.builder()
+                UserAddBonusDTO.builder()
                         .userId(share.getUserId())
                         .bonus(100)
-                        .description("兑换分享")
-                        .event("")
+//                        .description("兑换分享")
+//                        .event("")
                         .build()
         );
         return share;

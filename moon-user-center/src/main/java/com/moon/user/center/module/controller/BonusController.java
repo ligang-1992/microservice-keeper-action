@@ -8,7 +8,10 @@ import com.moon.user.center.module.service.BonusService;
 import com.moon.user.center.module.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  * @description:
@@ -23,9 +26,8 @@ public class BonusController {
     private final BonusService bonusService;
     private final UserService userService;
 
-    @PostMapping("add-bonus")
-    @ResponseBody
-    public User addBonus(UserAddBonusDTO bonusDTO) {
+    @PutMapping("/add-bonus")
+    public User addBonus(@RequestBody UserAddBonusDTO bonusDTO) {
         String userId = bonusDTO.getUserId();
 
         // 新增积分

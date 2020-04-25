@@ -9,4 +9,5 @@ import tk.mybatis.mapper.common.Mapper;
  * @date: 2020-04-03 00:56
  */
 public interface BonusEventLogMapper extends Mapper<BonusEventLog> {
+
 }
